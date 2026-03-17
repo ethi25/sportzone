@@ -1,0 +1,48 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<!-- Hero -->
+<div class="hero mb-5">
+    <h1>GEAR UP<br><span>PLAY HARD</span></h1>
+    <p>Cricket · Football · Basketball · Accessories</p>
+    <a href="#products" class="btn btn-primary mt-4">Shop Now →</a>
+</div>
+
+<!-- Categories -->
+<h2 class="section-title">Categories</h2>
+<div class="row mb-5">
+    {% for category in categories %}
+    <div class="col-md-3 mb-3">
+        <a href="/category/{{ category.slug }}/" class="text-decoration-none">
+            <div class="card text-center p-4">
+                <h5 class="mb-0" style="font-family:'Bebas Neue',sans-serif; letter-spacing:3px; font-size:1.3rem; color:#fff;">
+                    {{ category.name }}
+                </h5>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Products -->
+<h2 class="section-title" id="products">All Products</h2>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" style="height:220px; object-fit:cover;">
+            {% else %}
+            <div class="no-image">🏅</div>
+            {% endif %}
+            <div class="card-body">
+                <span class="category-badge mb-2 d-inline-block">{{ product.category }}</span>
+                <p class="product-name mt-2 mb-1">{{ product.name }}</p>
+                <p class="price mb-3">₹{{ product.price }}</p>
+                <a href="/product/{{ product.slug }}/" class="btn btn-primary w-100">View →</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

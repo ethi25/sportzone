@@ -1,0 +1,54 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-5 shadow">
+            <h2 class="text-center mb-1" style="font-family:'Bebas Neue',sans-serif; letter-spacing:4px;">CREATE ACCOUNT</h2>
+            <p class="text-center mb-4" style="color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Join the SportZone Family</p>
+
+            {% if form.errors %}
+            <div class="alert alert-danger" style="background:#1a0a00; border:1px solid #ff3d00; color:#ff3d00; border-radius:2px;">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" name="first_name" class="form-control" placeholder="John" value="{{ form.first_name.value|default:'' }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" name="last_name" class="form-control" placeholder="Doe" value="{{ form.last_name.value|default:'' }}">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" placeholder="john@example.com" value="{{ form.email.value|default:'' }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="johnDoe99" value="{{ form.username.value|default:'' }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password1" class="form-control" placeholder="••••••••">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Create Account →</button>
+            </form>
+            <p class="text-center mt-4" style="color:#888; font-size:0.85rem;">
+                Already have an account? <a href="/accounts/login/" style="color:#ff3d00;">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

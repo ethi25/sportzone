@@ -1,0 +1,25 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">{{ category.name }}</h2>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+            {% else %}
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:200px;">
+                <span>🏅 No Image</span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="text-danger fw-bold">₹{{ product.price }}</p>
+                <a href="/product/{{ product.slug }}/" class="btn btn-primary w-100">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-5">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" class="img-fluid rounded">
+        {% else %}
+        <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded" style="height:350px;">
+            <span>🏅 No Image</span>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-md-7">
+        <span class="category-badge">{{ product.category }}</span>
+        <h2 class="mt-2">{{ product.name }}</h2>
+        <h3 class="text-danger">₹{{ product.price }}</h3>
+        <p>{{ product.description }}</p>
+        <p>Stock: <strong>{{ product.stock }} items</strong></p>
+        <a href="/cart/add/{{ product.id }}/" class="btn btn-primary btn-lg">🛒 Add to Cart</a>
+        <a href="/" class="btn btn-outline-secondary btn-lg ms-2">← Back</a>
+    </div>
+</div>
+{% endblock %}

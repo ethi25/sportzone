@@ -1,0 +1,52 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">🛒 Your Cart</h2>
+
+{% if cart_items %}
+<div class="table-responsive">
+    <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>₹{{ item.price }}</td>
+                <td>
+                    <form method="post" action="/cart/update/{{ item.id }}/" class="d-flex align-items-center gap-2">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control" style="width:80px;">
+                        <button type="submit" class="btn btn-sm btn-secondary">Update</button>
+                    </form>
+                </td>
+                <td>₹{{ item.subtotal }}</td>
+                <td>
+                    <a href="/cart/remove/{{ item.id }}/" class="btn btn-sm btn-danger">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="text-end">
+    <h4>Total: <span class="text-danger">₹{{ total }}</span></h4>
+    <a href="/" class="btn btn-outline-secondary me-2">← Continue Shopping</a>
+    <a href="/checkout/" class="btn btn-primary btn-lg">Proceed to Checkout →</a>
+</div>
+
+{% else %}
+<div class="text-center py-5">
+    <h4>Your cart is empty 😢</h4>
+    <a href="/" class="btn btn-primary mt-3">🏆 Start Shopping</a>
+</div>
+{% endif %}
+{% endblock %}
